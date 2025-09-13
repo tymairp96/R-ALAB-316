@@ -84,19 +84,23 @@ topMenuEl.addEventListener("click", function (evt) {
     (link) => link.text === clickElement.textContent
   );
 
+  // Toggle active class on the clicked link
+  clickElement.classList.toggle("active");
+
+  // Remove active class from all other links
   topMenuLinks.forEach((link) => {
     if (link !== clickElement) {
       link.classList.remove("active");
     }
   });
 
-  clickElement.classList.toggle("active");
-
+  // If the clicked link is now active and has sub-links, show the submenu
   if (clickElement.classList.contains("active") && linkObject.subLinks) {
     buildSubmenu(linkObject.subLinks);
     subMenuEl.style.top = "100%";
     mainEl.innerHTML = "<h1>DOM Manipulation</h1>"; 
   } else {
+    // Hide the submenu if the link is not active or has no sub-links
     subMenuEl.style.top = "0";
     if (linkObject.text === "about") {
       mainEl.innerHTML = `<h1>${linkObject.text}</h1>`;
@@ -117,8 +121,6 @@ subMenuEl.addEventListener("click", function (event) {
   console.log(clickChild.textContent);
 
   subMenuEl.style.top = "0";
-
   topMenuLinks.forEach((link) => link.classList.remove("active"));
-
   mainEl.innerHTML = `<h1>${clickChild.textContent}</h1>`;
 });
